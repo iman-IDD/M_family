@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>أربعة نجوم... قلب واحد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div id="bgAura"></div>
+<div id="goldDust"></div>
+
+<audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+
+<!-- واجهة الاستقبال -->
+<section id="welcomeScreen" class="screen">
+  <div class="welcome-inner">
+    <div class="welcome-heart">
+      <svg viewBox="0 0 512 512" class="w-heart-svg">
+        <path d="M471.7 73.8c-54.5-46.4-136-38.2-186.6 13.7L256 117.2l-29.1-29.7C176.3 35.6 94.8 27.4 40.3 73.8c-62.6 53.4-66.4 149-11.6 207.2l193.5 199c18.8 19.3 49.1 19.3 67.9 0l193.5-199c54.8-58.2 51-153.8-11.9-207.2z"/>
+      </svg>
+      <span class="w-heart-word">عائلتي</span>
+    </div>
+
+    <h1 class="welcome-title">أربعة نجومٍ… وقلبٌ واحد</h1>
+    <p class="welcome-sub">مريم • غادة • عبد الرحيم • نسرين</p>
+    <p class="welcome-note">
+      في هذا المكان جمعتُ لكم شيئًا من القلب،
+      لأقول لكم ما لا تكفيه المناسبات.
+    </p>
+
+    <button id="enterBtn" class="gold-btn big">افتحوا هديتكم ✦</button>
+  </div>
+</section>
+
+<!-- الموقع -->
+<div id="app" class="hidden">
+
+  <header id="topbar">
+    <div class="brand">
+      <span class="brand-main">أربعة نجوم… قلب واحد</span>
+      <span class="brand-sub">هديةٌ من إيمان</span>
+    </div>
+    <nav id="nav">
+      <a href="#home">البداية</a>
+      <a href="#stars">نجوم العائلة</a>
+      <a href="#gallery">الصور</a>
+      <a href="#wishes">التهاني</a>
+      <a href="#game">اللعبة</a>
+      <a href="#prayers">الأدعية</a>
+      <a href="#finale">الختام</a>
+    </nav>
+    <button id="musicBtn" class="ghost-btn">إيقاف الموسيقى</button>
+  </header>
+
+  <main>
+
+    <!-- البداية -->
+    <section id="home" class="section">
+      <div class="card">
+        <div class="home-grid">
+          <div class="home-text">
+            <span class="tag">إلى أغلى الناس</span>
+            <h1>كلُّ عامٍ وأنتم القلبُ الذي لا يتعب</h1>
+            <p>
+              لم أجد هديةً تليق بكم، فصنعتُ لكم مكانًا صغيرًا
+              يحمل شيئًا من امتناني، وشيئًا من دعائي،
+              وكثيرًا من محبتي.
+            </p>
+            <p class="home-quote">
+              «أربعةُ أسماءٍ إذا ذُكِرت، اطمأنّ القلبُ وسكن.»
+            </p>
+          </div>
+
+          <div class="home-heart-wrap">
+            <div class="home-heart" id="homeHeart">
+              <svg viewBox="0 0 512 512" class="home-heart-svg">
+                <path d="M471.7 73.8c-54.5-46.4-136-38.2-186.6 13.7L256 117.2l-29.1-29.7C176.3 35.6 94.8 27.4 40.3 73.8c-62.6 53.4-66.4 149-11.6 207.2l193.5 199c18.8 19.3 49.1 19.3 67.9 0l193.5-199c54.8-58.2 51-153.8-11.9-207.2z"/>
+              </svg>
+              <div class="home-heart-names">
+                <span>مريم</span>
+                <span>غادة</span>
+                <span>عبد الرحيم</span>
+                <span>نسرين</span>
+              </div>
+            </div>
+            <p class="heart-cap">أغلى أربعة أسماء في حياتي</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- نجوم العائلة -->
+    <section id="stars" class="section">
+      <div class="card">
+        <h2>نجومُ العائلة</h2>
+        <p class="note">
+          تسعُ نجماتٍ رسمتْ قلبًا… اضغطوا على أي نجمة لتظهر لكم كلمة.
+        </p>
+
+        <div class="stars-heart" id="starsHeart"></div>
+
+        <p class="stars-hint">✦ كل نجمة تحمل صورةً وبيتَ شعرٍ وقولًا مأثورًا</p>
+      </div>
+
+      <div id="starModal" class="modal hidden">
+        <div class="modal-box">
+          <button class="close-x" id="closeStar">×</button>
+          <img id="starImg" src="" alt=""/>
+          <h3 id="starName"></h3>
+          <p class="star-poem" id="starPoem"></p>
+          <p class="star-saying" id="starSaying"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- المعرض -->
+    <section id="gallery" class="section">
+      <div class="card">
+        <h2>ذكرياتٌ لا تُنسى</h2>
+        <p class="note">لحظاتٌ صغيرة… لكنها تساوي العمر كله.</p>
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <!-- التهاني -->
+    <section id="wishes" class="section">
+      <div class="card">
+        <h2>تهانيَّ ورسائلي إليكم</h2>
+        <p class="note">اضغطوا على كل بطاقة لتقرأوا ما بداخلها.</p>
+        <div class="wishes-grid" id="wishesGrid"></div>
+      </div>
+    </section>
+
+    <!-- اللعبة -->
+    <section id="game" class="section">
+      <div class="card">
+        <h2>لعبة: اجمعوا نجوم العائلة</h2>
+        <p class="note">تسعُ نجماتٍ في عشرين ثانية… هل تستطيعون جمعهم؟</p>
+
+        <div class="game-bar">
+          <button id="startGame" class="gold-btn">ابدأوا اللعبة</button>
+          <div class="game-stats">
+            <span id="gTime">⏳ 20</span>
+            <span id="gScore">✦ 0 / 9</span>
+          </div>
+        </div>
+
+        <div id="gameArea" class="game-area"></div>
+        <p id="gameMsg" class="game-msg"></p>
+      </div>
+    </section>
+
+    <!-- الأدعية -->
+    <section id="prayers" class="section">
+      <div class="card">
+        <h2>أدعيةٌ من القلب</h2>
+        <p class="note">لكلِّ واحدٍ منكم دعوةٌ خاصة… ورسالةٌ لا تُقال كل يوم.</p>
+        <div class="prayers-list" id="prayersList"></div>
+      </div>
+    </section>
+
+    <!-- الختام -->
+    <section id="finale" class="section">
+      <div class="card finale-card">
+        <div class="finale-star">✦</div>
+        <h2>وفي الختام…</h2>
+        <p class="finale-text">
+          ما كتبتُه هنا أقلُّ بكثيرٍ مما تستحقّون،<br/>
+          لكن يكفي أن تعلموا أنكم في القلب دائمًا،<br/>
+          وأن دعائي يسبقكم أينما ذهبتم.<br/><br/>
+          كلُّ عامٍ وأنتم بخير،<br/>
+          وكلُّ عامٍ وأنتم فرحةُ هذا البيت.
+        </p>
+        <div class="finale-dua">
+          اللهم احفظ مريم وغادة وعبد الرحيم ونسرين،<br/>
+          وأطل في أعمارهم على خير،<br/>
+          واملأ أيامهم فرحًا ونجاحًا وعافية.
+        </div>
+        <span class="sign">— من قلب إيمان ✦</span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>صُنع بمحبةٍ خالصة من إيمان</p>
+    <p>لأنكم تستحقون أكثر من مجرد كلمات ✦</p>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+      </html>
