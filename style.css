@@ -1,0 +1,752 @@
+:root {
+  --bg: #1a0e2e;
+  --bg-deep: #120a20;
+  --purple: #6b3fa0;
+  --purple-light: #9b6fd0;
+  --purple-soft: #c4a8e8;
+  --gold: #d4a940;
+  --gold-light: #f2d98a;
+  --gold-glow: rgba(212, 169, 64, 0.25);
+  --cream: #faf3e3;
+  --text: #f5f0e8;
+  --muted: #c8bfae;
+  --line: rgba(255, 255, 255, 0.08);
+  --shadow: 0 16px 50px rgba(0, 0, 0, 0.4);
+  --radius: 28px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  font-family: "Cairo", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.hidden { display: none !important; }
+
+/* ===== الخلفية ===== */
+#bgAura {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(107, 63, 160, 0.35), transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(212, 169, 64, 0.22), transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(18, 10, 32, 0.95), var(--bg-deep));
+  animation: auraShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes auraShift {
+  0% { filter: hue-rotate(0deg) brightness(1); }
+  100% { filter: hue-rotate(8deg) brightness(1.04); }
+}
+
+/* غبار ذهبي */
+#goldDust {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.dust-p {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-light), transparent 70%);
+  opacity: 0.5;
+  animation: dustFloat linear forwards;
+}
+
+@keyframes dustFloat {
+  0% { transform: translateY(0) scale(0.6); opacity: 0.15; }
+  30% { opacity: 0.6; }
+  100% { transform: translateY(-110vh) scale(1.1); opacity: 0; }
+}
+
+/* ===== الشاشات ===== */
+.screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+/* ===== واجهة الاستقبال ===== */
+.welcome-inner {
+  text-align: center;
+  max-width: 620px;
+}
+
+.welcome-heart {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 20px;
+  display: grid;
+  place-items: center;
+}
+
+.w-heart-svg {
+  width: 150px;
+  height: 150px;
+  fill: var(--purple);
+  filter: drop-shadow(0 0 22px rgba(107, 63, 160, 0.4)) drop-shadow(0 0 40px var(--gold-glow));
+  animation: welcomeBeat 1.4s ease-in-out infinite;
+}
+
+@keyframes welcomeBeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.06); }
+  50% { transform: scale(0.97); }
+}
+
+.w-heart-word {
+  position: absolute;
+  color: var(--gold-light);
+  font-weight: 800;
+  font-size: 1.25rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.welcome-title {
+  font-family: "Amiri", serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--gold-light);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.welcome-sub {
+  color: var(--purple-soft);
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.welcome-note {
+  color: var(--muted);
+  line-height: 2;
+  margin-bottom: 28px;
+}
+
+/* ===== الأزرار ===== */
+.gold-btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #2a1a08;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 8px 22px var(--gold-glow);
+}
+
+.gold-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(212, 169, 64, 0.32);
+}
+
+.gold-btn.big {
+  padding: 18px 36px;
+  font-size: 1.15rem;
+  border-radius: 24px;
+}
+
+.ghost-btn {
+  padding: 12px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.22s ease;
+}
+
+.ghost-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+/* ===== الشريط العلوي ===== */
+#topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 20px;
+  background: rgba(26, 14, 46, 0.6);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.brand-main {
+  font-family: "Amiri", serif;
+  font-size: 1.5rem;
+  color: var(--gold-light);
+}
+
+.brand-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+#nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+#nav a {
+  text-decoration: none;
+  color: var(--text);
+  padding: 7px 11px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.88rem;
+  transition: 0.22s ease;
+}
+
+#nav a:hover {
+  color: var(--gold-light);
+  background: rgba(107, 63, 160, 0.14);
+}
+
+/* ===== الأقسام ===== */
+.section {
+  padding: 56px 16px;
+}
+
+.card {
+  width: min(1120px, 94vw);
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+  border: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  font-family: "Amiri", serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+
+.note {
+  color: var(--muted);
+  line-height: 2;
+  margin-bottom: 24px;
+}
+
+.tag {
+  display: inline-block;
+  color: var(--purple-soft);
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+}
+
+/* ===== البداية ===== */
+.home-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.home-text h1 {
+  font-family: "Amiri", serif;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.home-text p {
+  color: var(--muted);
+  line-height: 2;
+  margin-bottom: 14px;
+}
+
+.home-quote {
+  padding: 14px 18px;
+  border-radius: 20px;
+  background: rgba(107, 63, 160, 0.1);
+  border: 1px solid rgba(107, 63, 160, 0.18);
+  font-family: "Amiri", serif;
+  font-size: 1.08rem;
+  color: var(--gold-light);
+  line-height: 1.9;
+}
+
+.home-heart-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.home-heart {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: grid;
+  place-items: center;
+}
+
+.home-heart-svg {
+  width: 190px;
+  height: 190px;
+  fill: var(--purple);
+  filter: drop-shadow(0 0 20px rgba(107, 63, 160, 0.35)) drop-shadow(0 0 36px var(--gold-glow));
+  animation: homeBeat 1.3s ease-in-out infinite;
+}
+
+@keyframes homeBeat {
+  0%, 100% { transform: scale(1); }
+  20% { transform: scale(1.05); }
+  40% { transform: scale(0.97); }
+}
+
+.home-heart-names {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.home-heart-names span {
+  color: var(--gold-light);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.heart-cap {
+  color: var(--purple-soft);
+  font-weight: 700;
+}
+
+/* ===== نجوم العائلة ===== */
+.stars-heart {
+  position: relative;
+  width: min(92vw, 520px);
+  height: 480px;
+  margin: 16px auto 0;
+}
+
+.star-node {
+  position: absolute;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  border: 2px solid rgba(212, 169, 64, 0.35);
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), rgba(212,169,64,0.12));
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 18px var(--gold-glow);
+  transition: 0.25s ease;
+  overflow: hidden;
+  animation: starGlow 3.5s ease-in-out infinite;
+}
+
+.star-node img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.star-node:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 28px rgba(212, 169, 64, 0.4);
+}
+
+@keyframes starGlow {
+  0%, 100% { box-shadow: 0 0 16px var(--gold-glow); }
+  50% { box-shadow: 0 0 30px rgba(212, 169, 64, 0.38); }
+}
+
+.stars-hint {
+  text-align: center;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* المودال */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  background: rgba(18, 10, 32, 0.88);
+  padding: 20px;
+}
+
+.modal-box {
+  width: min(92vw, 500px);
+  padding: 28px;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+  text-align: center;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+
+.modal-box img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--gold);
+  margin-bottom: 14px;
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+
+.modal-box h3 {
+  color: var(--gold-light);
+  font-family: "Amiri", serif;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.star-poem {
+  font-family: "Amiri", serif;
+  color: var(--text);
+  line-height: 2.1;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+}
+
+.star-saying {
+  color: var(--purple-soft);
+  font-size: 0.95rem;
+  line-height: 1.9;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(107, 63, 160, 0.08);
+  border: 1px solid rgba(107, 63, 160, 0.14);
+}
+
+.close-x {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.close-x:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* ===== المعرض ===== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.gallery-item {
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: var(--shadow);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-item p {
+  padding: 10px 14px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ===== التهاني ===== */
+.wishes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.wish-card {
+  padding: 22px;
+  border-radius: 22px;
+  background: rgba(107, 63, 160, 0.08);
+  border: 1px solid rgba(107, 63, 160, 0.16);
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.wish-card:hover {
+  background: rgba(107, 63, 160, 0.14);
+  transform: translateY(-2px);
+}
+
+.wish-card h3 {
+  color: var(--gold-light);
+  font-family: "Amiri", serif;
+  margin-bottom: 8px;
+}
+
+.wish-card .wish-text {
+  display: none;
+  line-height: 2.1;
+  color: var(--text);
+  margin-top: 10px;
+}
+
+.wish-card.open .wish-text {
+  display: block;
+}
+
+.wish-card .wish-hint {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.wish-card.open .wish-hint {
+  display: none;
+}
+
+/* ===== اللعبة ===== */
+.game-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.game-stats {
+  display: flex;
+  gap: 10px;
+}
+
+.game-stats span {
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--gold-light);
+  min-width: 72px;
+  text-align: center;
+}
+
+.game-area {
+  height: 400px;
+  border-radius: 24px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-star {
+  position: absolute;
+  top: -40px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  user-select: none;
+  animation: fallStar linear forwards;
+}
+
+@keyframes fallStar {
+  to { transform: translateY(480px); opacity: 0.9; }
+}
+
+.game-msg {
+  min-height: 40px;
+  margin-top: 16px;
+  text-align: center;
+  color: var(--gold-light);
+  font-weight: 700;
+  line-height: 2;
+}
+
+/* ===== الأدعية ===== */
+.prayers-list {
+  display: grid;
+  gap: 18px;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.prayer-card {
+  padding: 24px;
+  border-radius: 24px;
+  background: rgba(107, 63, 160, 0.06);
+  border: 1px solid rgba(107, 63, 160, 0.14);
+  border-inline-start: 4px solid var(--gold);
+}
+
+.prayer-card h3 {
+  color: var(--gold-light);
+  font-family: "Amiri", serif;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.prayer-card .dua {
+  color: var(--purple-soft);
+  line-height: 2.1;
+  margin-bottom: 10px;
+  font-family: "Amiri", serif;
+}
+
+.prayer-card .personal-msg {
+  color: var(--text);
+  line-height: 2;
+}
+
+/* ===== الختام ===== */
+.finale-card {
+  text-align: center;
+  padding: 48px 28px;
+}
+
+.finale-star {
+  font-size: 2.6rem;
+  color: var(--gold-light);
+  margin-bottom: 12px;
+  animation: pulseStar 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseStar {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+.finale-text {
+  max-width: 680px;
+  margin: 0 auto 18px;
+  line-height: 2.2;
+  font-size: 1.08rem;
+  color: var(--text);
+}
+
+.finale-dua {
+  max-width: 660px;
+  margin: 0 auto 16px;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(107, 63, 160, 0.08);
+  border: 1px solid rgba(107, 63, 160, 0.14);
+  font-family: "Amiri", serif;
+  line-height: 2.2;
+  color: var(--purple-soft);
+}
+
+.sign {
+  display: inline-block;
+  color: var(--gold-light);
+  font-weight: 800;
+  margin-top: 10px;
+}
+
+/* ===== التذييل ===== */
+footer {
+  text-align: center;
+  padding: 28px 16px 52px;
+  color: var(--muted);
+}
+
+footer p {
+  margin: 0 0 4px;
+  line-height: 1.9;
+}
+
+/* ===== الأقسام: الظهور ===== */
+.card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== التجاوب ===== */
+@media (max-width: 920px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+  #topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #nav {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 22px 16px;
+    border-radius: 22px;
+  }
+  .star-node {
+    width: 62px;
+    height: 62px;
+  }
+  .stars-heart {
+    height: 420px;
+  }
+  .gallery-item img {
+    height: 200px;
+  }
+  .home-heart {
+    width: 160px;
+    height: 160px;
+  }
+  .home-heart-svg {
+    width: 150px;
+    height: 150px;
+  }
+}
